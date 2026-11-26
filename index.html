@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stillpoint · Fewer meetings. More stillness.</title>
+<meta name="description" content="Stillpoint finds the meetings your team doesn't need and turns them into short notes.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#B9D3EC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&display=swap">
+<style>
+/* Built from Figma "Stillpoint Desktop 1440" (node 83:157). Page sits in an 8px frame; bands are rounded panels; content column 1120px. */
+:root {
+  --sky: #B9D3EC; --haze: #DCE9F5; --cloud: #F7F8F8; --horizon: #ECE6DE;
+  --ink: #17191C; --slate: #5E6670; --deep: #2F5B86; --deep-ink: #1F3F5E;
+  --tint: #F3F5F8; --line: #E3E6E8; --line-strong: #CDD3D8; --white: #FFFFFF;
+  --night-1: #1C2633; --night-2: #17191C; --night-card: #20242A; --night-line: #2D3238;
+  --night-fg: #EEF0F2; --night-muted: #9AA3AD; --night-dim: #858D97; --night-chip: #26364A;
+  --block: #C9DAEA; --ghost: rgba(47, 91, 134, 0.06);
+  --dot: linear-gradient(160deg, #8FAFCF 0%, #C9DAEA 55%, #E6DED4 100%);
+  --font: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --w: 1120px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--cloud); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sky); }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+:focus-visible { outline: 2px solid var(--deep); outline-offset: 3px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.frame { padding: 8px max(8px, env(safe-area-inset-right, 0px)) 8px max(8px, env(safe-area-inset-left, 0px)); display: grid; gap: 93px; }
+.wrap { max-width: var(--w); margin: 0 auto; width: 100%; padding-left: 16px; padding-right: 16px; }
+
+.eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; line-height: 20.8px; color: var(--slate); }
+.h2 { font-size: clamp(34px, 4.6vw, 48px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.08; text-wrap: balance; }
+.head { display: grid; justify-items: center; gap: 16px; text-align: center; max-width: 680px; margin: 0 auto 64px; }
+.head p { font-size: 18px; line-height: 28.8px; color: var(--slate); max-width: 610px; text-wrap: balance; }
+h3 { font-size: 17px; font-weight: 500; line-height: 22.95px; }
+
+.dot { display: inline-block; border-radius: 50%; background: var(--dot); flex: none; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 46px; padding: 0 22px; border-radius: 999px; border: 0; font: 500 15px var(--font); background: var(--deep); color: var(--cloud); cursor: pointer; white-space: nowrap; transition: opacity .2s ease, transform .2s ease; }
+.btn:hover { opacity: .9; }
+.btn:active { transform: scale(.98); }
+.btn.soft { background: var(--haze); color: var(--deep-ink); }
+.btn.sm { height: 38px; padding: 0 16px; font-size: 14px; }
+
+.waitlist { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.waitlist input { height: 46px; width: 260px; max-width: 100%; padding: 0 20px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--white); color: var(--ink); font: 400 15px var(--font); }
+.waitlist input::placeholder { color: var(--slate); opacity: .5; }
+.form-note { font-size: 13px; color: var(--slate); min-height: 21px; text-align: center; }
+.form-note.ok { color: var(--ink); }
+.form-note.err { color: #A33A27; }
+
+/* Hero */
+.hero { position: relative; border-radius: 0; background: linear-gradient(180deg, #B9D3EC 0%, #DCE9F5 40%, #F7F8F8 80%, #ECE6DE 100%); margin: calc(-8px - env(safe-area-inset-top, 0px)) calc(-1 * max(8px, env(safe-area-inset-right, 0px))) 0 calc(-1 * max(8px, env(safe-area-inset-left, 0px))); padding: calc(env(safe-area-inset-top, 0px) + 24px) 0 96px; }
+.nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); z-index: 20; }
+.nav-bar { max-width: 1136px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 9px 9px 9px 19px; border-radius: 999px; background: rgba(255, 255, 255, 0.72); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.nav-links { display: flex; gap: 28px; font-size: 15px; line-height: 24px; color: var(--slate); }
+.nav-links a:hover { color: var(--ink); }
+.hero-inner { display: grid; justify-items: center; gap: 23px; text-align: center; padding-top: 111px; }
+.hero h1 { font-size: clamp(44px, 7vw, 76px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.08; max-width: 650px; text-wrap: balance; }
+.lede { font-size: 19px; line-height: 30.4px; color: var(--slate); max-width: 428px; text-wrap: balance; }
+.hero .waitlist { margin-top: 9px; }
+
+.cal { width: 100%; max-width: 920px; margin-top: 42px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: grid; gap: 16px; text-align: left; }
+.cal-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.cal-title { font-size: 15px; font-weight: 500; line-height: 24px; }
+.cal-stat { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--slate); }
+.cal-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.day { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.day-name { height: 24px; border-bottom: 0.8px solid var(--line); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--slate); line-height: 19.2px; }
+.mtg { min-height: 52px; border-radius: 10px; padding: 9px 10px; border: 1px solid transparent; background: var(--block); color: var(--deep-ink); font-size: 12.5px; line-height: 16.88px; }
+.mtg span { display: block; font-size: 11.5px; line-height: 15.53px; opacity: .75; }
+.mtg.go { animation: dissolve 1.2s ease .9s both; }
+.mtg.go::after { content: "Now an async note"; display: block; font-size: 11px; line-height: 14.85px; margin-top: 3px; animation: reveal .8s ease 1.9s both; }
+@keyframes dissolve { from { background: var(--block); color: var(--deep-ink); border-color: transparent; border-style: solid; } to { background: var(--ghost); color: var(--slate); border-color: var(--line-strong); border-style: dashed; } }
+@keyframes reveal { from { opacity: 0; } to { opacity: 1; } }
+.free { min-height: 52px; }
+
+/* Problem */
+.problem-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 0.8px solid var(--line); }
+.problem-row > div { background: var(--tint); padding: 31px 28px; min-height: 138px; display: grid; gap: 7px; align-content: start; text-align: center; }
+.problem-row > div.lit { background: var(--haze); }
+.problem-row p { font-size: 14.5px; line-height: 23.2px; color: var(--slate); text-wrap: balance; }
+
+/* How it works (dark panel) */
+.panel-dark { background: linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 60%); color: var(--night-fg); border-radius: 25px; padding-block: 128px; }
+.panel-dark .eyebrow { color: var(--night-muted); }
+.panel-dark .h2 { color: var(--night-fg); }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; gap: 13px 20px; }
+.step { grid-row: span 3; display: grid; grid-template-rows: subgrid; row-gap: 13px; min-width: 0; }
+.ui { background: var(--night-card); border: 1px solid var(--night-line); border-radius: 14px; padding: 18px; min-height: 196px; display: grid; gap: 10px; align-content: start; font-size: 13.5px; line-height: 21.6px; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; height: 42px; padding: 0 12px; border-radius: 10px; background: var(--night-2); color: var(--night-fg); white-space: nowrap; }
+.row .v { color: var(--night-muted); }
+.chip { font-size: 11.5px; font-weight: 500; line-height: 16px; padding: 3px 9px; border-radius: 999px; background: var(--night-chip); color: var(--haze); white-space: nowrap; }
+.strike { color: var(--night-muted); text-decoration: line-through; }
+.note { border-left: 1.6px solid var(--sky); padding: 3px 0 4px 14px; display: grid; gap: 6px; }
+.note b { font-weight: 500; color: var(--night-fg); }
+.note span { color: var(--night-muted); }
+.step-label { height: 30px; border-radius: 4px; background: var(--night-card); display: grid; place-items: center; font-size: 13px; color: var(--night-muted); }
+.step-text { background: var(--night-card); border: 1px solid var(--night-line); border-radius: 14px; padding: 20px 24px 24px; min-height: 117px; display: grid; gap: 10px; align-content: start; justify-items: center; text-align: center; }
+.step-text p { max-width: 290px; }
+.step-text h3 { color: var(--night-muted); }
+.step-text p { font-size: 13px; line-height: 18px; color: var(--night-dim); text-wrap: balance; }
+
+/* Principles */
+.principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.principle { background: var(--tint); border: 1px solid var(--line); border-radius: 14px; padding: 28px 24px; display: grid; gap: 9px; align-content: start; }
+.principle .icon { width: 44px; height: 44px; border-radius: 12px; background: var(--haze); display: grid; place-items: center; margin-bottom: 10px; }
+.principle p { font-size: 15px; line-height: 24px; color: var(--slate); }
+
+/* Pricing */
+.panel-sky { background: linear-gradient(180deg, #DCE9F5 0%, #EAF1F8 30%, #F7F8F8 62%); border-radius: 15px; padding-block: 128px 64px; }
+.pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1088px; margin: 0 auto; }
+.plan { background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 31px 32px 38px; display: grid; gap: 33px; align-content: start; }
+.plan-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.price { font-size: 17.3px; font-weight: 300; letter-spacing: -0.02em; line-height: 17.3px; opacity: .5; margin-top: 2px; }
+.tag { font-size: 12px; font-weight: 500; line-height: 19.2px; padding: 3px 10px 4px; border-radius: 999px; background: var(--haze); color: var(--deep-ink); white-space: nowrap; }
+.plan-body { display: grid; gap: 26px; }
+.plan .btn { width: 100%; }
+.plan ul { display: grid; gap: 8px; font-size: 15px; line-height: 24px; color: var(--slate); }
+.plan li { display: flex; gap: 10px; align-items: center; }
+.plan li::before { content: ""; width: 6px; height: 6px; border-radius: 3px; background: var(--deep); flex: none; }
+
+/* Closing */
+/* Spacing: 64px pricing padding + 93px frame gap above = 157px; 64px + 93px below to the footer = 157px. */
+.closing { display: grid; justify-items: center; gap: 16px; text-align: center; padding-block: 0 64px; }
+.closing .dot { margin-bottom: 8px; }
+.closing .h2 { font-size: clamp(38px, 5.6vw, 60px); max-width: 520px; }
+.closing > p { font-size: 18px; line-height: 28.8px; color: var(--slate); }
+.closing .waitlist { margin-top: 16px; }
+.closing .form-note { margin-top: -4px; }
+
+/* Footer (dark panel) */
+.footer { background: linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 60%); color: var(--night-muted); border-radius: 25px; padding-block: 64px 32px; font-size: 13px; line-height: 20px; }
+.foot-top { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; padding-bottom: 96px; }
+.foot-brand { display: grid; gap: 14px; align-content: start; max-width: 240px; }
+.foot-col { display: grid; gap: 10px; align-content: start; }
+.foot-col h4 { margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--night-fg); }
+.foot-col a:hover, .foot-legal a:hover { color: var(--night-fg); }
+.foot-bottom { display: grid; grid-template-columns: 1.4fr 2fr 1fr; gap: 32px; align-items: center; padding-top: 24px; border-top: 1px solid var(--night-line); }
+.socials { display: flex; gap: 8px; }
+.socials a { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--night-line); display: grid; place-items: center; }
+.socials a:hover { border-color: var(--night-muted); }
+.foot-legal { display: flex; gap: 20px; justify-content: flex-end; }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .steps, .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pricing { grid-template-columns: 1fr; max-width: 480px; }
+  .problem-row { grid-template-columns: 1fr; }
+  .panel-dark, .panel-sky { padding-block: 96px; }
+  .foot-top { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .foot-brand { grid-column: 1 / -1; }
+  .foot-bottom { grid-template-columns: 1fr; gap: 16px; }
+  .foot-legal { justify-content: flex-start; }
+  .frame { gap: 72px; }
+}
+@media (max-width: 600px) {
+  .steps, .principles { grid-template-columns: 1fr; }
+  .cal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .day:nth-child(n+4) { display: none; }
+  .hero-inner { padding-top: 72px; }
+  .waitlist input, .waitlist .btn { width: 100%; }
+  .foot-top { grid-template-columns: 1fr 1fr; padding-bottom: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mtg.go, .mtg.go::after { animation-duration: 1ms; animation-delay: 0s; }
+  .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <header class="hero" id="top">
+    <div class="wrap nav">
+      <div class="nav-bar">
+        <a href="#top" aria-label="Stillpoint home"><img src="assets/logo-nav.svg" width="136" height="29" alt="stillpoint"></a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="#how">How it works</a>
+          <a href="#principles">Principles</a>
+          <a href="#pricing">Pricing</a>
+        </nav>
+        <a class="btn sm" href="#join">Join the waitlist</a>
+      </div>
+    </div>
+
+    <div class="wrap hero-inner">
+      <h1>Your week, with the noise taken out.</h1>
+      <p class="lede">Stillpoint finds the meetings your team doesn't need and turns them into short notes.</p>
+      <form class="waitlist" data-form novalidate>
+        <label class="sr" for="email-hero">Work email</label>
+        <input id="email-hero" type="email" placeholder="you@team.com" autocomplete="email">
+        <button class="btn" type="submit">Join the waitlist</button>
+      </form>
+      <p class="form-note" aria-live="polite"></p>
+
+      <div class="cal" role="img" aria-label="Example week: Stillpoint turns five of nine meetings into async notes">
+        <div class="cal-head">
+          <span class="cal-title">Design team · Week 48</span>
+          <span class="cal-stat"><span class="dot" style="width:9px;height:9px"></span>5 of 9 meetings could be a note · 4.5 h back</span>
+        </div>
+        <div class="cal-grid">
+          <div class="day"><div class="day-name">Mon</div>
+            <div class="mtg go">Weekly status<span>9:00 · 45 min</span></div>
+            <div class="mtg">Design critique<span>14:00 · 60 min</span></div>
+          </div>
+          <div class="day"><div class="day-name">Tue</div>
+            <div class="mtg go">Project FYI sync<span>10:00 · 30 min</span></div>
+            <div class="free"></div>
+          </div>
+          <div class="day"><div class="day-name">Wed</div>
+            <div class="mtg">Client workshop<span>11:00 · 90 min</span></div>
+            <div class="mtg go">Roadmap update<span>15:00 · 45 min</span></div>
+          </div>
+          <div class="day"><div class="day-name">Thu</div>
+            <div class="mtg go">Handoff check-in<span>9:30 · 30 min</span></div>
+            <div class="mtg">1:1 with lead<span>13:00 · 30 min</span></div>
+          </div>
+          <div class="day"><div class="day-name">Fri</div>
+            <div class="mtg go">Friday recap<span>16:00 · 60 min</span></div>
+            <div class="mtg">Team lunch<span>12:00 · 60 min</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="problem" class="wrap" style="padding-top:35px">
+    <div class="head">
+      <span class="eyebrow">The problem</span>
+      <h2 class="h2">Most meetings could have been a message.</h2>
+      <p>Every calendar tool makes it easier to add a meeting. None of them helps you remove one.</p>
+    </div>
+    <div class="problem-row">
+      <div><h3>Status updates</h3><p>Read in two minutes instead of sitting through thirty.</p></div>
+      <div class="lit"><h3>FYI syncs</h3><p>Information that only needs to travel one way.</p></div>
+      <div><h3>Meetings with no decision</h3><p>An hour later, everyone is exactly where they started.</p></div>
+    </div>
+  </section>
+
+  <section id="how" class="panel-dark">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">How it works</span>
+        <h2 class="h2">Stillpoint reads your week, so you don't have to sit through it.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="ui">
+            <div class="row"><span>Google Calendar</span><span class="chip">Connected</span></div>
+            <div class="row"><span>This week</span><span class="v">9 meetings</span></div>
+            <div class="row"><span>Team time in meetings</span><span class="v">11.5 h</span></div>
+          </div>
+          <div class="step-label">Step 1</div>
+          <div class="step-text"><h3>Reads your week</h3><p>Connects to Google or Outlook and looks at every recurring and one-off meeting.</p></div>
+        </div>
+        <div class="step">
+          <div class="ui">
+            <div class="row"><span>Weekly status · 45 min</span><span class="chip">Could be async</span></div>
+            <div class="row"><span>Friday recap · 60 min</span><span class="chip">Could be async</span></div>
+            <div class="row"><span>Client workshop · 90 min</span><span class="v">Keep</span></div>
+          </div>
+          <div class="step-label">Step 2</div>
+          <div class="step-text"><h3>Flags what could be async</h3><p>Status updates, FYI syncs and meetings without a decision are marked for you to review.</p></div>
+        </div>
+        <div class="step">
+          <div class="ui">
+            <span class="strike">Weekly status · 45 min</span>
+            <div class="note">
+              <b>Status · Week 48</b>
+              <span>Design: homepage hero approved.<br>Engineering: waitlist form live.<br>Blockers: none.</span>
+            </div>
+          </div>
+          <div class="step-label">Step 3</div>
+          <div class="step-text"><h3>Writes the note</h3><p>One tap replaces the meeting with a short note drafted from the agenda. You review it before it's sent.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles" class="wrap">
+    <div class="head">
+      <span class="eyebrow">Principles</span>
+      <h2 class="h2">Built to stay out of your way.</h2>
+      <p>Most tools compete for your attention. Stillpoint is designed to need as little of it as possible, so your team's week stays yours.</p>
+    </div>
+    <div class="principles">
+      <div class="principle">
+        <div class="icon"><img src="assets/icon-1.svg" width="19" height="19" alt=""></div>
+        <h3>No dashboards</h3>
+        <p>Nothing new to check. Stillpoint works quietly inside the calendar your team already uses.</p>
+      </div>
+      <div class="principle">
+        <div class="icon"><img src="assets/icon-2.svg" width="19" height="19" alt=""></div>
+        <h3>No notifications by default</h3>
+        <p>One short summary a week. Anything more is opt-in and easy to switch off.</p>
+      </div>
+      <div class="principle">
+        <div class="icon"><img src="assets/icon-3.svg" width="19" height="19" alt=""></div>
+        <h3>Suggests, never cancels</h3>
+        <p>Nothing on your calendar changes until you say yes. You stay in charge of your team's time.</p>
+      </div>
+      <div class="principle">
+        <div class="icon"><img src="assets/icon-4.svg" width="19" height="19" alt=""></div>
+        <h3>Your calendar stays yours</h3>
+        <p>Encrypted, never sold and never used to train AI models. Disconnect and it's deleted.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="panel-sky">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="h2">Simple, like the product.</h2>
+      </div>
+      <div class="pricing">
+        <div class="plan">
+          <div><h3>Free</h3><p class="price">$0/mo</p></div>
+          <div class="plan-body">
+            <a class="btn soft" href="#join">Join the waitlist</a>
+            <ul><li>Teams up to 5 people</li><li>Weekly meeting review</li><li>Async notes</li></ul>
+          </div>
+        </div>
+        <div class="plan">
+          <div class="plan-top"><div><h3>Team</h3><p class="price">$7/month</p></div><span class="tag">Most popular</span></div>
+          <div class="plan-body">
+            <a class="btn" href="#join">Join the waitlist</a>
+            <ul><li>Teams up to 50 people</li><li>Google and Outlook calendars</li><li>Shared note templates</li></ul>
+          </div>
+        </div>
+        <div class="plan">
+          <div><h3>Studio</h3><p class="price">$12/mo</p></div>
+          <div class="plan-body">
+            <a class="btn soft" href="#join">Join the waitlist</a>
+            <ul><li>Unlimited people and teams</li><li>Meeting insights across teams</li><li>Single sign-on and admin controls</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join" class="wrap closing">
+    <span class="dot" style="width:22px;height:22px"></span>
+    <h2 class="h2">Take back a quiet morning.</h2>
+    <p>Join the waitlist. We'll write when Stillpoint is ready for your team.</p>
+    <form class="waitlist" data-form novalidate>
+      <label class="sr" for="email-closing">Work email</label>
+      <input id="email-closing" type="email" placeholder="you@team.com" autocomplete="email">
+      <button class="btn" type="submit">Join the waitlist</button>
+    </form>
+    <p class="form-note" aria-live="polite">No spam. One email when we launch.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <img src="assets/logo-footer.svg" width="124" height="26" alt="stillpoint">
+          <p>Fewer meetings. More stillness. A calm calendar for small teams, made in Copenhagen.</p>
+        </div>
+        <nav class="foot-col" aria-label="Product"><h4>Product</h4><a href="#how">How it works</a><a href="#principles">Principles</a><a href="#pricing">Pricing</a><a href="#join">Join the waitlist</a></nav>
+        <nav class="foot-col" aria-label="Resources"><h4>Resources</h4><a href="#top">Meeting guide</a><a href="#top">Blog</a><a href="#top">Help centre</a><a href="#top">Trust centre</a></nav>
+        <nav class="foot-col" aria-label="Company"><h4>Company</h4><a href="#top">About</a><a href="#top">Careers</a><a href="#top">Press</a><a href="#join">Contact</a></nav>
+      </div>
+      <div class="foot-bottom">
+        <div class="socials">
+          <a href="#top" aria-label="Stillpoint on LinkedIn"><img src="assets/social-linkedin.svg" width="16" height="16" alt=""></a>
+          <a href="#top" aria-label="Stillpoint on X"><img src="assets/social-x.svg" width="16" height="16" alt=""></a>
+        </div>
+        <span>© 2026 Stillpoint ApS. All rights reserved.</span>
+        <nav class="foot-legal" aria-label="Legal"><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Cookies</a></nav>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll('[data-form]').forEach(function (form) {
+  var input = form.querySelector('input');
+  var note = form.nextElementSibling;
+  var original = note.textContent;
+  input.addEventListener('input', function () { note.className = 'form-note'; note.textContent = original; });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      note.className = 'form-note err';
+      note.textContent = 'Enter a work email, like you@team.com.';
+      input.focus();
+      return;
+    }
+    note.className = 'form-note ok';
+    note.textContent = "You're on the list. We'll be in touch, quietly.";
+    input.value = '';
+  });
+});
+</script>
+</body>
+</html>
