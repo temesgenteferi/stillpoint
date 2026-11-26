@@ -167,8 +167,12 @@ h3 { font-size: 17px; font-weight: 500; line-height: 22.95px; }
 }
 @media (max-width: 600px) {
   .steps, .principles { grid-template-columns: 1fr; }
-  .cal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .day:nth-child(n+4) { display: none; }
+  /* Phone calendar: each day becomes a row with its two meetings side by side */
+  .cal { padding: 16px; }
+  .cal-grid { grid-template-columns: 1fr; gap: 14px; }
+  .day { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .day-name { grid-column: 1 / -1; }
+  .day:nth-child(2), .day:nth-child(5) { display: none; }
   .hero-inner { padding-top: 72px; }
   .waitlist input, .waitlist .btn { width: 100%; }
   .foot-top { grid-template-columns: 1fr 1fr; padding-bottom: 56px; }
