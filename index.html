@@ -138,7 +138,8 @@ h3 { font-size: 17px; font-weight: 500; line-height: 22.95px; }
 .closing .h2 { font-size: clamp(38px, 5.6vw, 60px); max-width: 520px; }
 .closing > p { font-size: 18px; line-height: 28.8px; color: var(--slate); }
 .closing .waitlist { margin-top: 16px; }
-.closing .form-note { margin-top: -4px; }
+.closing .form-note { margin-top: -4px; font-size: 13px; line-height: 20px; }
+.closing .form-note:not(.ok):not(.err) { color: #6E7680; }
 
 /* Footer (dark panel) */
 .footer { background: linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 60%); color: var(--night-muted); border-radius: 25px; padding-block: 64px 32px; font-size: 13px; line-height: 20px; }
@@ -166,6 +167,9 @@ h3 { font-size: 17px; font-weight: 500; line-height: 22.95px; }
   .frame { gap: 72px; }
   /* The hero runs edge to edge (no 8px frame), so its content gets the frame's 8px added back */
   .hero-inner { padding-left: 24px; padding-right: 24px; }
+  /* Closing CTA: equal space above (pricing panel) and below (footer) = 40px + 72px gap */
+  .panel-sky { padding-bottom: 40px; }
+  .closing { padding-bottom: 40px; }
 }
 @media (max-width: 600px) {
   .steps, .principles { grid-template-columns: 1fr; }
@@ -181,6 +185,7 @@ h3 { font-size: 17px; font-weight: 500; line-height: 22.95px; }
   .day:nth-child(2), .day:nth-child(5) { display: none; }
   .hero-inner { padding-top: 72px; }
   .waitlist input, .waitlist .btn { width: 100%; }
+  .waitlist input { text-align: center; }
   .foot-top { grid-template-columns: 1fr 1fr; padding-bottom: 56px; }
 }
 @media (prefers-reduced-motion: reduce) {
