@@ -164,9 +164,15 @@ h3 { font-size: 17px; font-weight: 500; line-height: 22.95px; }
   .foot-bottom { grid-template-columns: 1fr; gap: 16px; }
   .foot-legal { justify-content: flex-start; }
   .frame { gap: 72px; }
+  /* The hero runs edge to edge (no 8px frame), so its content gets the frame's 8px added back */
+  .hero-inner { padding-left: 24px; padding-right: 24px; }
 }
 @media (max-width: 600px) {
   .steps, .principles { grid-template-columns: 1fr; }
+  /* Phone gutter: all content sits 28px from the screen edge (8px frame + 20px) */
+  .wrap { padding-left: 20px; padding-right: 20px; }
+  .hero-inner { padding-left: 28px; padding-right: 28px; }
+  .nav.wrap { padding-left: 16px; padding-right: 16px; }
   /* Phone calendar: each day becomes a row with its two meetings side by side */
   .cal { padding: 16px; }
   .cal-grid { grid-template-columns: 1fr; gap: 14px; }
